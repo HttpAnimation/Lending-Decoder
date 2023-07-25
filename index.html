@@ -92,6 +92,7 @@
 <body>
     <div class="container">
         <div class="field">
+            <label for="jsonInput">Paste your JSON data here</label>
             <textarea id="jsonInput" placeholder="Paste your JSON data here"></textarea>
         </div>
         <div class="field">
@@ -110,6 +111,10 @@
             <label for="email">Email</label>
             <input type="email" id="email" disabled>
         </div>
+        <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" disabled></textarea>
+        </div>
         <div class="decode-button">
             <button onclick="decodeJson()">Decode</button>
         </div>
@@ -125,6 +130,7 @@
                 document.getElementById('loan-type').value = parsedData['fields[field_2fb49df][value]'];
                 document.getElementById('phone-number').value = parsedData['fields[field_5160f12][value]'];
                 document.getElementById('email').value = parsedData['fields[email][value]'];
+                document.getElementById('message').value = parsedData['fields[message][value]'];
             } catch (error) {
                 alert('Error decoding JSON. Please make sure the JSON data is valid.');
             }
