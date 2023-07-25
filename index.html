@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lending Decoder</title>
+    <style>
+        body {
+            background-color: #141d26;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #666;
+            border-radius: 5px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+            color: #b9b9b9;
+        }
+
+        .field input[type="text"],
+        .field input[type="email"],
+        .field input[type="tel"],
+        .field textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            outline: none;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .field input[type="text"]::placeholder,
+        .field input[type="email"]::placeholder,
+        .field input[type="tel"]::placeholder,
+        .field textarea::placeholder {
+            color: #b9b9b9;
+        }
+
+        .field input[type="text"]:focus,
+        .field input[type="email"]:focus,
+        .field input[type="tel"]:focus,
+        .field textarea:focus {
+            border-color: #6a00b5;
+        }
+
+        .field select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+        }
+
+        .decode-button {
+            text-align: center;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 12px;
+            background-color: #6a00b5;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4b0082;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="field">
+            <textarea id="jsonInput" placeholder="Paste your JSON data here"></textarea>
+        </div>
+        <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" disabled>
+        </div>
+        <div class="field">
+            <label for="loan-type">Loan Type</label>
+            <input type="text" id="loan-type" disabled>
+        </div>
+        <div class="field">
+            <label for="phone-number">Phone Number</label>
+            <input type="tel" id="phone-number" disabled>
+        </div>
+        <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" disabled>
+        </div>
+        <div class="decode-button">
+            <button onclick="decodeJson()">Decode</button>
+        </div>
+    </div>
+
+    <script>
+        function decodeJson() {
+            const jsonData = document.getElementById('jsonInput').value.trim();
+            try {
+                const parsedData = JSON.parse(jsonData);
+
+                document.getElementById('name').value = parsedData['fields[name][value]'];
+                document.getElementById('loan-type').value = parsedData['fields[field_2fb49df][value]'];
+                document.getElementById('phone-number').value = parsedData['fields[field_5160f12][value]'];
+                document.getElementById('email').value = parsedData['fields[email][value]'];
+            } catch (error) {
+                alert('Error decoding JSON. Please make sure the JSON data is valid.');
+            }
+        }
+    </script>
+</body>
+</html>
